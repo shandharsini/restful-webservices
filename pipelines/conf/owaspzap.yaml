@@ -1,0 +1,12 @@
+zapConfig:
+  appUrl: "http://localhost:8080"
+  contextName: "/"
+  includeUrls: "</url pattern to include with Comma-separated values>*"
+  excludeUrls: "</url pattern to exclude with Comma-separated values>*"
+  ajaxSpider: "False"
+  spider:  "True"
+  proxyUrl: "http://localhost:8081"
+  reportPath: "target/report"
+  reportType: "html,xml"
+  zapProxyCMD: "/zap/zap-x.sh -host 0.0.0.0 -port 8080 -config api.addrs.addr.name=.* -config api.addrs.addr.regex=true -config api.disablekey=true"
+  proxyChainHost: "<outgoing proxy url>"
