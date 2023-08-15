@@ -1,24 +1,8 @@
 
-@Library(owasp-zap-scan-jenkins-sharedlib@master)	
-
 pipeline {   
 
-    library identifier: 'jenkins-sharedlib-zap-scan@master', retriever: modernSCM([$class: 'GitSCMSource',
-        remote: 'remote_git_repo_name',
-        credentialsId: 'jenkinsPAT'])
-
     stages {
-	    agent {
-            kubernetes {
-                label "pod-template-${UUID.randomUUID().toString()}"
-                containers: [
-                    containerTemplate {
-                        name 'owasp-zap'
-                        image 'https://hub.docker.com/r/owasp/zap2docker-stable'
-                        ttyEnabled true
-                }]
-            }
-        }
+	    
 
         
         stage('Build') {
@@ -28,23 +12,6 @@ pipeline {
         }
 		
 		
-		stage ("Integration Tests with Zap Active Scan") {
-          steps{
-            script{
-                container("owasp-zap")  {
-                    runOwaspZapProxy()
-                }
-                container("gradle/maven")  {
-                    // Run the Integration test with Zap Proxy
-                }
-                container("owasp-zap")  {
-                    runActivescan()
-                    generateHtmlReport()
-                }
-            }
-          }
-        }
-
 	}
     
 }
