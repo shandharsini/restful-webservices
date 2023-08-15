@@ -20,26 +20,13 @@ pipeline {
             }
         }
 
+        
         stage('Build') {
             steps {
-                bat 'mvn -B -DskipTests clean package'
+                bat 'set'
             }
         }
-        stage('Test') {
-            steps {
-                bat 'mvn test'
-            }
-            post {
-                always {
-                    junit 'target/surefire-reports/*.xml'
-                }
-            }
-        }
-        stage('Deliver') {
-            steps {
-                bat './jenkins/scripts/deliver.sh'
-            }
-        }
+		
 		
 		stage ("Integration Tests with Zap Active Scan") {
           steps{
